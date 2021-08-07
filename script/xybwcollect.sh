@@ -1,0 +1,6 @@
+#!/bin/bash
+# source /etc/profile.d/xybwcollect.sh
+export BW_BASE_SECRET_KEY=BfFvGPMzepHdAsv1BeQDsb
+export BW_SNMP_COMMUNITY=3yFAnGhjgrkty8jaEzJHjS7bw65dnJUCbPAbS2yXj6CZ
+export BW_TRAP_COMMUNITY=3yFAnGhjgrkty8jaEzJHjS7bw65dnJUCbPAbS2yXj6CZ
+export BW_XY_MONITOR_API_KEY=3FKhdvRJRd58MGYo6CVCcf

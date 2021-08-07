@@ -1,0 +1,76 @@
+{
+  "sys_conf": {
+    "debug": true,
+    "log": {
+      "__Level": "日志级别 : -1Trace 0Debug 1Info 2Warn 3Error(默认) 4Fatal 5Panic 6NoLevel 7Off",
+      "level": 1,
+      "__File": "日志文件路径和名称, 默认为 ../log/APPName.log",
+      "file": "",
+      "__Max": "文件日志设置, 每 100M 自动切割, 保留 30 天内最近 10 个日志文件",
+      "max_size": 100,
+      "max_backups": 10,
+      "max_age": 30,
+      "__Sample": "抽样日志设置, 默认每 1 秒最多 3 个日志",
+      "period": 1,
+      "burst": 3
+    },
+    "log_api": "http://es-api.ff.cn/v1/bw_collect_log/bulk",
+    "report_api": "http://es-api.ff.cn/v1/bw_collect/bulk",
+    "main_config": {
+      "method": "GetMonitorSource",
+      "__SecretName": "__加密的 Key 保存的环境变量名",
+      "secret_name": "BW_XY_MONITOR_API_KEY",
+      "api": "http://api.ff.cn/get_source?&token=",
+      "__TimeDuration": "单位(秒), <30 秒时禁用",
+      "interval": 66
+    }
+  },
+  "trap_conf": {
+    "report_api": "http://es-api.ff.cn/v1/monitor_trap_alarm/bulk",
+    "alarm_code": "monitor_trap_alarm",
+    "local_addr": ":162",
+    "__(必须)标识符描述和 Oid 对照表": "报警时用该描述替换 Oid",
+    "identifiers": {
+      "1.3.6.1.6.3.1.1.5.3": "Down"
+    },
+    "__(必须)限定收集的 Oids 前缀": "只有这些前缀且标识符描述匹配成功的才报警",
+    "interface_prefix": [
+      "1.3.6.1.2.1.2.2.1.2",
+      "1.3.6.1.2.1.31.1.1.1.1"
+    ]
+  },
+  "snmp_conf": {
+    "__(可选)指定Community加密密码环境变量名称": "export BW_SNMP_COMMUNITY=***",
+    "community_name": "BW_SNMP_COMMUNITY",
+    "__(可选)端口": "默认161, 地址中带端口时优先",
+    "port": 161,
+    "__(可选)接口黑名单": "正则表达式",
+    "ban_regexp": "^(lo|tun\\d+|tap\\d+|ppp\\d+|tcpproxy)$",
+    "__超时设置": "默认 10",
+    "timeout": 10,
+    "__重试次数": "默认 2",
+    "retries": 2,
+    "v2": {
+      "__指定配置文件": "文件内容与 addr 规则相同, # 或 __ 开头的行为注释行. 指定 api 即定时从远端获取",
+      "files": [
+        {
+          "__Path": "配置文件名, 相对或绝对路径, # 开头则禁用此项配置",
+          "path": "v2_addr_router.txt",
+          "method": "GetMonitorSource",
+          "__SecretName": "__加密的 Key 保存的环境变量名",
+          "secret_name": "BW_XY_MONITOR_API_KEY",
+          "api": "http://api.xy.com:12345/api/get_source?name=snmp-router-list&token=",
+          "__TimeDuration": "单位(秒), <30 秒时禁用",
+          "interval": 600
+        }
+      ],
+      "__V2 版本设备列表": "密码(可选, 默认为上面的环境变量值)@设备IP#端口(可选, 默认为 161)",
+      "addr": [
+        "password@10.0.0.1#16101",
+        "10.0.0.2#16101",
+        "__注释行",
+        "127.0.0.1"
+      ]
+    }
+  }
+}
