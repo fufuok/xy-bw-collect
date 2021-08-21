@@ -12,8 +12,9 @@ import (
 	"time"
 
 	"github.com/fufuok/utils"
-	"github.com/fufuok/utils/json"
 	"github.com/k-sone/snmpgo"
+
+	"github.com/fufuok/xy-bw-collect/internal/json"
 )
 
 // 接口配置
@@ -109,6 +110,9 @@ type tTrapConf struct {
 	// 限定收集的 Oids 前缀: 1.3.6.1.2.1.2.2.1.2
 	InterfacePrefix []string `json:"interface_prefix"`
 
+	// 报警 IP 和名称对照表
+	IPNameTable map[string]string `json:"ip_name_table"`
+
 	InterfacePrefixOids snmpgo.Oids
 
 	Community string
@@ -142,8 +146,8 @@ func readConf() (*tJSONConf, error) {
 		return nil, err
 	}
 
-	var config *tJSONConf
-	if err := json.Unmarshal(body, &config); err != nil {
+	config := new(tJSONConf)
+	if err := json.Unmarshal(body, config); err != nil {
 		return nil, err
 	}
 
@@ -216,13 +220,13 @@ func readConf() (*tJSONConf, error) {
 	config.SNMPConf.V2.TargetNew = v2TargetNew
 
 	// 连接超时, 最大重试次数, 最大重复次数
-	if config.SNMPConf.Timeout < 0 {
+	if config.SNMPConf.Timeout < 1 {
 		config.SNMPConf.Timeout = SNMPTimeout
 	}
 	if config.SNMPConf.Retries < 0 {
 		config.SNMPConf.Retries = SNMPRetries
 	}
-	if config.SNMPConf.MaxRepetitions < 0 {
+	if config.SNMPConf.MaxRepetitions < 1 {
 		config.SNMPConf.MaxRepetitions = SNMPMaxRepetitions
 	}
 

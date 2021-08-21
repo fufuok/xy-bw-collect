@@ -46,17 +46,20 @@ func (l *tTrapListener) OnTRAP(trap *snmpgo.TrapRequest) {
 		table := time.Now().Format(conf.TrapCacheTable)
 		cache := cache2go.Cache(table)
 
-		srcIP, _, _ := utils.GetIPPort(trap.Source)
 		ifName = strings.Trim(ifName, ",")
+		srcIP, _, _ := utils.GetIPPort(trap.Source)
+		nodeIP := srcIP.String()
+		nodeIPName := utils.GetString(conf.Config.TrapConf.IPNameTable[nodeIP], nodeIP)
+
 		now := time.Now()
 		data := utils.MustJSON(map[string]interface{}{
 			"code":      conf.Config.TrapConf.AlarmCode,
-			"node_ip":   srcIP.String(),
+			"node_ip":   nodeIP,
 			"ifname":    ifName,
 			"event":     event,
 			"timestamp": now.Unix(),
 			"time":      now.Format(time.RFC3339),
-			"info":      "trap",
+			"info":      nodeIPName,
 		})
 
 		if conf.Config.SYSConf.Debug {

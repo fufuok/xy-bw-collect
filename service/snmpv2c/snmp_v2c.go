@@ -6,12 +6,12 @@ import (
 
 	"github.com/fufuok/cache2go"
 	"github.com/fufuok/utils"
-	"github.com/fufuok/utils/json"
 	"github.com/fufuok/utils/xid"
 	"github.com/k-sone/snmpgo"
 
 	"github.com/fufuok/xy-bw-collect/common"
 	"github.com/fufuok/xy-bw-collect/conf"
+	"github.com/fufuok/xy-bw-collect/internal/json"
 )
 
 // Collector SNMP 采集器 v2c

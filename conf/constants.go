@@ -5,8 +5,8 @@ import (
 )
 
 const (
-	CurrentVersion = "1.2.7.21080712"
-	LastChange     = "add trap server"
+	CurrentVersion = "1.2.8.21082112"
+	LastChange     = "go1.17, utils0.2.0"
 	APPName        = "XY.BWCollect"
 	ProjectName    = "xybwcollect"
 
