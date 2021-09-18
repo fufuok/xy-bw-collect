@@ -12,7 +12,7 @@ import (
 
 // InitCollector 初始化新增或变动的配置
 func InitCollector() {
-	if conf.Config.SYSConf.Debug {
+	if conf.Debug {
 		common.Log.Info().Msgf("init new collector: %s", conf.Config.SNMPConf.V2.TargetNew)
 	}
 	for targetKey := range conf.Config.SNMPConf.V2.TargetNew {

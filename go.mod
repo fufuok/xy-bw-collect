@@ -4,12 +4,12 @@ go 1.17
 
 require (
 	github.com/fufuok/cache2go v0.2.103
-	github.com/fufuok/cmap v0.0.100
-	github.com/fufuok/utils v0.2.0
-	github.com/goccy/go-json v0.7.6
+	github.com/fufuok/cmap v0.0.101
+	github.com/fufuok/utils v0.2.3
+	github.com/goccy/go-json v0.7.8
 	github.com/imroc/req v0.3.0
 	github.com/k-sone/snmpgo v3.2.0+incompatible
-	github.com/rs/zerolog v1.23.0
+	github.com/rs/zerolog v1.25.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 )
 

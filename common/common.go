@@ -27,26 +27,6 @@ type TIFInfo struct {
 	Duration      time.Duration
 }
 
-func NewIFInfo() *TIFInfo {
-	// Time["any"] is "0001-01-01 00:00:00 +0000 UTC"
-	return &TIFInfo{
-		GoID:          xid.NewString() + time.Now().Format(".060102150405"),
-		IfAdminStatus: make(map[int]string),
-		IfName:        make(map[int]string),
-		IpAddr:        make(map[int]string),
-		IfIn:          make(map[int]uint64),
-		IfOut:         make(map[int]uint64),
-		LastIfIn:      make(map[int]uint64),
-		LastIfOut:     make(map[int]uint64),
-		IfInPkts:      make(map[int]uint64),
-		IfOutPkts:     make(map[int]uint64),
-		LastIfInPkts:  make(map[int]uint64),
-		LastIfOutPkts: make(map[int]uint64),
-		Time:          make(map[string]time.Time),
-		LastTime:      make(map[string]time.Time),
-	}
-}
-
 type TBWReport struct {
 	Ip          string  `json:"ip"`
 	In          uint64  `json:"kbps_in"`
@@ -91,3 +71,28 @@ var IfHCOutUcastPkts = snmpgo.MustNewOid("1.3.6.1.2.1.31.1.1.1.11")
 // var IfPhysAddress = snmpgo.MustNewOid("1.3.6.1.2.1.2.2.1.6")
 
 var IpAdEntIfIndex = snmpgo.MustNewOid("1.3.6.1.2.1.4.20.1.2")
+
+func NewIFInfo() *TIFInfo {
+	// Time["any"] is "0001-01-01 00:00:00 +0000 UTC"
+	return &TIFInfo{
+		GoID:          xid.NewString() + time.Now().Format(".060102150405"),
+		IfAdminStatus: make(map[int]string),
+		IfName:        make(map[int]string),
+		IpAddr:        make(map[int]string),
+		IfIn:          make(map[int]uint64),
+		IfOut:         make(map[int]uint64),
+		LastIfIn:      make(map[int]uint64),
+		LastIfOut:     make(map[int]uint64),
+		IfInPkts:      make(map[int]uint64),
+		IfOutPkts:     make(map[int]uint64),
+		LastIfInPkts:  make(map[int]uint64),
+		LastIfOutPkts: make(map[int]uint64),
+		Time:          make(map[string]time.Time),
+		LastTime:      make(map[string]time.Time),
+	}
+}
+
+func InitCommon() {
+	// 初始化日志环境
+	initLogger()
+}

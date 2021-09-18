@@ -39,7 +39,7 @@ func Collector(target conf.TV2Target, info *common.TIFInfo) {
 	}
 
 	// 采集调试信息
-	if conf.Config.SYSConf.Debug {
+	if conf.Debug {
 		tmpInfo, _ := json.Marshal(info)
 		common.Log.Debug().Msgf("\n\ninfo[%s - %s:%s]: \n%s\n%s\n",
 			info.GoID, target.Addr, target.Port, string(tmpInfo), info.Duration)
@@ -144,7 +144,7 @@ func dataMerge(addr string, info *common.TIFInfo) {
 		})
 
 		// 采集调试信息
-		if conf.Config.SYSConf.Debug {
+		if conf.Debug {
 			common.Log.Debug().Msgf("\n\nbwData[%s]: \n%s\n", info.GoID, string(bwData))
 		}
 

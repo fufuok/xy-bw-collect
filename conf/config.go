@@ -1,11 +1,11 @@
 package conf
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
+	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -118,10 +118,8 @@ type tTrapConf struct {
 	Community string
 }
 
-func init() {
-	confFile := flag.String("c", ConfigFile, "配置文件绝对路径")
-	flag.Parse()
-	ConfigFile = *confFile
+// InitConfig 初始化配置
+func InitConfig() {
 	if err := LoadConf(); err != nil {
 		log.Fatalln("Failed to initialize config:", err, "\nbye.")
 	}
@@ -134,6 +132,7 @@ func LoadConf() error {
 		return err
 	}
 
+	Debug = config.SYSConf.Debug
 	Config = *config
 
 	return nil
@@ -141,7 +140,7 @@ func LoadConf() error {
 
 // 读取配置
 func readConf() (*tJSONConf, error) {
-	body, err := ioutil.ReadFile(ConfigFile)
+	body, err := os.ReadFile(ConfigFile)
 	if err != nil {
 		return nil, err
 	}

@@ -8,27 +8,34 @@ import (
 	"github.com/imroc/req"
 )
 
-// RootPath 运行绝对路径
-var RootPath = utils.ExecutableDir(true)
+var (
+	Debug     bool
+	Version   = "v0.0.0"
+	GoVersion = ""
+	GitCommit = ""
 
-// FilePath 配置文件绝对路径
-var FilePath = filepath.Join(RootPath, "..", "etc")
+	// RootPath 运行绝对路径
+	RootPath = utils.ExecutableDir(true)
 
-// ConfigFile 默认配置文件路径
-var ConfigFile = filepath.Join(FilePath, ProjectName+".json")
+	// FilePath 配置文件绝对路径
+	FilePath = filepath.Join(RootPath, "..", "etc")
 
-// LogDir 日志路径
-var LogDir = filepath.Join(RootPath, "..", "log")
-var LogFile = filepath.Join(LogDir, ProjectName+".log")
+	// ConfigFile 默认配置文件路径
+	ConfigFile = filepath.Join(FilePath, ProjectName+".json")
 
-// LogDaemon 守护日志
-var LogDaemon = filepath.Join(LogDir, "daemon.log")
+	// LogDir 日志路径
+	LogDir  = filepath.Join(RootPath, "..", "log")
+	LogFile = filepath.Join(LogDir, ProjectName+".log")
 
-// Config 所有配置
-var Config tJSONConf
+	// LogDaemon 守护日志
+	LogDaemon = filepath.Join(LogDir, "daemon.log")
 
-// ReqUserAgent 请求名称
-var ReqUserAgent = req.Header{"User-Agent": APPName + "/" + CurrentVersion}
+	// Config 所有配置
+	Config tJSONConf
 
-// ESIPs 采集目标 IP 对应的 ES 源 IP 数据
-var ESIPs = cmap.New()
+	// ReqUserAgent 请求名称
+	ReqUserAgent = req.Header{"User-Agent": APPName + "/" + Version}
+
+	// ESIPs 采集目标 IP 对应的 ES 源 IP 数据
+	ESIPs = cmap.New()
+)

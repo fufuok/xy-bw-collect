@@ -33,7 +33,7 @@ func (w *ESWriter) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 
-func init() {
+func initLogger() {
 	if err := InitLogger(); err != nil {
 		log.Fatalln("Failed to initialize logger:", err, "\nbye.")
 	}
@@ -69,7 +69,7 @@ func InitLogger() error {
 		ErrorSampler: sampler,
 	})
 
-	req.Debug = conf.Config.SYSConf.Debug
+	req.Debug = conf.Debug
 
 	return nil
 }
@@ -83,7 +83,7 @@ func LogConfig() error {
 		basicLog = zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: "0102 15:04:05"}
 	)
 
-	if conf.Config.SYSConf.Debug {
+	if conf.Debug {
 		writers = []io.Writer{basicLog}
 	} else {
 		basicLog.NoColor = conf.Config.SYSConf.Log.NoColor

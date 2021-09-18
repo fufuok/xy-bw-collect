@@ -62,7 +62,7 @@ func (l *tTrapListener) OnTRAP(trap *snmpgo.TrapRequest) {
 			"info":      nodeIPName,
 		})
 
-		if conf.Config.SYSConf.Debug {
+		if conf.Debug {
 			common.LogSampled.Debug().Bytes("data", data).Msg("TRAP")
 		}
 
