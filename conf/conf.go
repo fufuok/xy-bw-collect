@@ -2,6 +2,7 @@ package conf
 
 import (
 	"path/filepath"
+	"sync"
 
 	"github.com/fufuok/cmap"
 	"github.com/fufuok/utils"
@@ -38,4 +39,7 @@ var (
 
 	// ESIPs 采集目标 IP 对应的 ES 源 IP 数据
 	ESIPs = cmap.New()
+
+	// FilesVer 配置文件版本信息
+	FilesVer sync.Map
 )

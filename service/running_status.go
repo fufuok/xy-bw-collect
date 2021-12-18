@@ -38,6 +38,7 @@ func RunningStatus() map[string]interface{} {
 
 // 系统信息
 func sysStatus() map[string]interface{} {
+	ver := conf.GetFilesVer(conf.Config.SYSConf.MainConfig.Path)
 	return map[string]interface{}{
 		"APPName":      conf.APPName,
 		"Version":      conf.Version,
@@ -45,8 +46,8 @@ func sysStatus() map[string]interface{} {
 		"Uptime":       time.Since(start).String(),
 		"Debug":        conf.Debug,
 		"LogLevel":     zerolog.Level(conf.Config.SYSConf.Log.Level).String(),
-		"ConfigVer":    conf.Config.SYSConf.MainConfig.ConfigVer,
-		"ConfigMD5":    conf.Config.SYSConf.MainConfig.ConfigMD5,
+		"ConfigVer":    ver.LastUpdate,
+		"ConfigMD5":    ver.MD5,
 		"GoVersion":    conf.GoVersion,
 		"NumCpus":      runtime.NumCPU(),
 		"NumGoroutine": runtime.NumGoroutine(),
